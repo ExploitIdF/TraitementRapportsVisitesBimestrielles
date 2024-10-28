@@ -7,7 +7,11 @@ La fonction est inscrite dans un fichier .py on a dans le même répertoire un r
 
 Lieu des commandes : exploit_diridf@cloudshell
 
-project ID :tunnels-dirif
+Il  faut renseigner le projet avec gcloud init (project ID :tunnels-dirif)
+
+ou bien  `gcloud config set project tunnels-dirif`
+
+
 
 ```
 gcloud functions deploy python-finalize-function \
