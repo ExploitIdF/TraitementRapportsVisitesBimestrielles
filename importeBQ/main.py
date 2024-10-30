@@ -14,12 +14,11 @@ def hello_gcs(cloud_event: CloudEvent) -> tuple:
     bucket = storageC.get_bucket('issues-secours')
     blob = bucket.blob(name)
     json_object = json.loads(blob.download_as_string().decode('utf-8'))
-    strObj=''
-    table_schema =[]
+    strObj=name
+    table_schema =[{"name":"nomFichier","type":"STRING","mode":"NULLABLE" }]
     for k in json_object.keys():
         strObj=strObj+','+json_object[k]
         table_schema.append({"name":k,"type":"STRING","mode":"NULLABLE" })
-    strObj=strObj[1:]
     print(strObj)
     print('long strObj:', len(strObj.split(',')))
     print(table_schema)
@@ -32,13 +31,10 @@ def hello_gcs(cloud_event: CloudEvent) -> tuple:
     print('long schema:', len(table_schema ))
     client  = bigquery.Client()
     dataset  = client.dataset('rapports_visites')
-    table = dataset.table('tb4')
+    table = dataset.table('tb5')
 
     job_config = bigquery.LoadJobConfig()
     job_config.schema = format_schema(table_schema)
-    st8='L10.375C,2024-02-13 00:42:00,Karen,R2,R6,R0,R3,R1,R0,R4,R0,R0,R2,R2,R1,R1,R2,R0'
-    job = client.load_table_from_file(io.StringIO(st8), table, job_config = job_config)
-
+    job = client.load_table_from_file(io.StringIO(strObj), table, job_config = job_config)
     print(job.result())
-
     return name
