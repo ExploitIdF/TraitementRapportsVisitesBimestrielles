@@ -1,0 +1,69 @@
+,codePC,PC,codeRC,RC,Probab
+0,P01,1. Propreté/vacuité avant la porte coupe-feu,R0,2_Propreté et vacuité OK,0.05
+1,P01,1. Propreté/vacuité avant la porte coupe-feu,R1,1_Présence de détritus devant la porte coupe-feu,0.05
+2,P01,1. Propreté/vacuité avant la porte coupe-feu,R2,1_Présence d'eau devant la porte coupe-feu,0.05
+3,P01,1. Propreté/vacuité avant la porte coupe-feu,R3,1_Autre anomalie à signaler,0.05
+4,P01,1. Propreté/vacuité avant la porte coupe-feu,R4,0_Encombrement devant la porte coupe-feu,0.8
+5,P02,2. Porte coupe-feu,R0,2_Temps de fermeture en autonomie ≤ 10 secondes,0.022222222222222223
+6,P02,2. Porte coupe-feu,R1,2_Porte coupe-feu OK,0.022222222222222223
+7,P02,2. Porte coupe-feu,R2,2_Issue non équipée,0.022222222222222223
+8,P02,2. Porte coupe-feu,R3,1_Porte coupe-feu endommagée,0.022222222222222223
+9,P02,2. Porte coupe-feu,R4,1_Autre anomalie à signaler,0.022222222222222223
+10,P02,2. Porte coupe-feu,R5,0_Temps de fermeture en autonomie > 10 secondes,0.022222222222222223
+11,P02,2. Porte coupe-feu,R6,0_Problème d'étanchéité,0.022222222222222223
+12,P02,2. Porte coupe-feu,R7,0_Porte coupe-feu ne se refermant pas seule,0.022222222222222223
+13,P02,2. Porte coupe-feu,R8,0_Porte coupe-feu dure à ouvrir,0.022222222222222223
+14,P02,2. Porte coupe-feu,R9,0_Porte coupe-feu bloquée,0.8
+15,P03,3. Surpression,R0,2_Surpression OK,0.05
+16,P03,3. Surpression,R1,2_Issue non équipée,0.05
+17,P03,3. Surpression,R2,1_Autre anomalie à signaler,0.05
+18,P03,3. Surpression,R3,0_Surpression trop forte empêchant la seconde ouverture de la porte,0.05
+19,P03,3. Surpression,R4,0_Surpression non activée à l'ouverture de la porte,0.8
+20,P04,4. Propreté et vacuité du sas,R0,2_Propreté et vacuité sas OK,0.04
+21,P04,4. Propreté et vacuité du sas,R1,1_Présence de salissures/déchets/graffitis dans le sas,0.04
+22,P04,4. Propreté et vacuité du sas,R2,1_Présence d'eau dans le sas,0.04
+23,P04,4. Propreté et vacuité du sas,R3,1_Encombrement modéré du sas (passage possible),0.04
+24,P04,4. Propreté et vacuité du sas,R4,1_Autre anomalie à signaler,0.04
+25,P04,4. Propreté et vacuité du sas,R5,0_Encombrement critique du sas (passage impossible),0.8
+26,P05,5. Eclairage de secours dans le sas,R0,2_Eclairage de secours OK,0.1
+27,P05,5. Eclairage de secours dans le sas,R1,1_Eclairage de secours dégradé,0.1
+28,P05,5. Eclairage de secours dans le sas,R2,0_Pas d'éclairage de secours,0.8
+29,P06,6. Eclairage normal dans le sas,R0,2_Eclairage normal OK,0.1
+30,P06,6. Eclairage normal dans le sas,R1,1_Eclairage normal dégradé,0.1
+31,P06,6. Eclairage normal dans le sas,R2,0_Pas d'éclairage normal,0.8
+32,P07,7. Porte(s) sas à l'intérieur de l'issue,R0,2_Porte(s) sas OK,0.028571428571428574
+33,P07,7. Porte(s) sas à l'intérieur de l'issue,R1,2_Issue non équipée,0.028571428571428574
+34,P07,7. Porte(s) sas à l'intérieur de l'issue,R2,1_Problème d'étanchéité,0.028571428571428574
+35,P07,7. Porte(s) sas à l'intérieur de l'issue,R3,1_Porte sas ne se refermant pas seule,0.028571428571428574
+36,P07,7. Porte(s) sas à l'intérieur de l'issue,R4,1_Porte sas endommagée,0.028571428571428574
+37,P07,7. Porte(s) sas à l'intérieur de l'issue,R5,1_Porte sas dure à ouvrir,0.028571428571428574
+38,P07,7. Porte(s) sas à l'intérieur de l'issue,R6,1_Autre anomalie à signaler,0.028571428571428574
+39,P07,7. Porte(s) sas à l'intérieur de l'issue,R7,0_Porte sas bloquée,0.8
+40,P08,8. Propreté et vacuité dans l'issue,R0,2_Propreté et vacuité issue OK,0.04
+41,P08,8. Propreté et vacuité dans l'issue,R1,1_Présence de salissures/déchets/graffitis dans l'issue,0.04
+42,P08,8. Propreté et vacuité dans l'issue,R2,1_Présence d'eau dans l'issue,0.04
+43,P08,8. Propreté et vacuité dans l'issue,R3,1_Encombrement modéré de l'issue (passage possible),0.04
+44,P08,8. Propreté et vacuité dans l'issue,R4,1_Autre anomalie à signaler,0.04
+45,P08,8. Propreté et vacuité dans l'issue,R5,0_Encombrement critique de l'issue (passage impossible),0.8
+46,P09,9. Eclairage de secours dans l'issue,R0,2_Eclairage de secours OK,0.1
+47,P09,9. Eclairage de secours dans l'issue,R1,1_Eclairage de secours dégradé,0.1
+48,P09,9. Eclairage de secours dans l'issue,R2,0_Pas d'éclairage de secours,0.8
+49,P10,10. Eclairage normal dans l'issue,R0,2_Eclairage normal OK,0.1
+50,P10,10. Eclairage normal dans l'issue,R1,1_Eclairage normal dégradé,0.1
+51,P10,10. Eclairage normal dans l'issue,R2,0_Pas d'éclairage normal,0.8
+52,P11,11. Caméra détection,R0,2_Issue non équipée (?),0.1
+53,P11,11. Caméra détection,R1,2_Contrôle visuel OK,0.1
+54,P11,11. Caméra détection,R2,0_Dégradations visibles,0.8
+55,P12,12. Détecteur,R0,2_Issue non équipée (?),0.06666666666666667
+56,P12,12. Détecteur,R1,2_Détecteur OK,0.06666666666666667
+57,P12,12. Détecteur,R2,0_Eclairage normal non activé,0.06666666666666667
+58,P12,12. Détecteur,R3,0_Détecteur HS,0.8
+59,P13,13. Téléphone de sécurité (TSE),R0,2_TSE OK,0.1
+60,P13,13. Téléphone de sécurité (TSE),R1,2_Issue non équipée (?),0.1
+61,P13,13. Téléphone de sécurité (TSE),R2,0_Dégradations visibles,0.8
+62,P14,14. Armoire(s) PST,R0,2_Issue non équipée,0.1
+63,P14,14. Armoire(s) PST,R1,2_Armoire PST OK,0.1
+64,P14,14. Armoire(s) PST,R2,0_Dégradations visibles,0.8
+65,P20,20. Bilan général issue,R0,2_Pas d'autre anomalies à signaler,0.1
+66,P20,20. Bilan général issue,R1,1_Anomalies légères à signaler,0.1
+67,P20,20. Bilan général issue,R2,0_Anomalies urgentes à signaler,0.8
