@@ -1,4 +1,4 @@
-# Traitement des rapports de visites d'issues
+# Traitement et importation dans BQ des rapports de visites 
 Documentation : https://cloud.google.com/functions/docs/tutorials/storage 
 
 La fonction est inscrite dans un fichier `main.py`  
