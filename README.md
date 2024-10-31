@@ -23,8 +23,28 @@ Le titulaire devra réaliser, chaque année, 5 visites bimestrielles et 1 interv
 Le rapport d'une intervention de maintenance préventive est composé du rapport d'une visite bimestrielle et 
 d'un complément de rapport qui concerne les actions spécifiques à cette intervention.
 
+## Commandes et ordres de travail
+Les actions préventives de visites bimestrielles ou d'interventions de maintenance annuelle sont commandées de manière groupées par fermetures 
+et elles concernent à la fois les issues et les niches. Pour les visites bimestrielles, d'une part, et pour les interventions de maintenance annuelle, d'autre part,
+il existe, dans le bordereau des prix unitaires (BPU), un prix pour chaque fermeture.
+
+Dans CosWin, la commande d'une visite bimestrielle pour une fermeture fait l'objet d'un ordre de travail (OT) *père*. 
+CosWin génère un OT fils par issue et par niche de la fermeture. 
+Il en est de même pour les interventions de maintenance annuelle.
+
+Au moment de la commande le PCTT indique sur le bon de commande, dans Sucombe et dans CosWin la date de l'action 
+qui est programmée, sur la base du calendrier des fermetures, en concertation avec le titulaire. Dans Sucombe et dans CosWin, cette date définit le délai de réalisation de l'action.
+
+Le titulaire doit extraire de CosWin la table des OTs qui comporte, pour chaque ligne : 
+
+* numéro d'OT,
+* tatouage de l'issue ou de la niche,
+* délai de réalisation de l'action.
+
+Ces données doivent être importées dans l'application de saisie des rapports du titulaire(voir ci-dessous).
 
 ## Formats des fichiers à déposer
+### Application de saisie des rapports
 Le titulaire du marché devra mettre une application de saisie des rapports sur un terminal mobile, à disposition de ses agents intervenant dans les tunnels.
 Les rapports seront envoyés directement depuis le terminal de l'agent sur le serveur de la DIRIF.
 
@@ -32,13 +52,23 @@ A ce stade, il est prévu que le serveur soit un **bucket dans Google Storage** 
 Ainsi, dans la version de développement, les fichiers peuvent être atteints par une URL du type : 
 https://storage.googleapis.com/issues-secours/rapports-visites/345467-3196056.json
 
+### dénomination des rapports
 On distingue 4 modèles de rapports :
 
-* rapport de la visite bimestrielle d'une issue
-* rapport de la visite bimestrielle d'une niche
-* complément de rapport pour la maintenance annuelle d'une issue
-* complément de rapport pour la maintenance annuelle d'une niche
+* rapport de la visite bimestrielle d'une issue (VBIS)
+* rapport de la visite bimestrielle d'une niche (VBNI)
+* complément de rapport pour la maintenance annuelle d'une issue (MAIS)
+* complément de rapport pour la maintenance annuelle d'une niche (MANI)
 
+Le nom du rapport est de la forme : <type>-<OT>-<timestamp>.json avec :
+
+* type : le code à 4 caractère (VBIS, ...)
+* OT : le numéro d'OT fils
+* le nombre de secondes depuis 01-01-202N à la fin de l'action dans l'issue ou la niche
+
+par exemple : VBIS-345678-26182800 pour une action terminée le 30-10-2024 à 01h00.
+
+### Points de contrôle
 Les rapports sont composés de plusieurs **points de contrôle (PC)**.
 
 Pour chaque point de contrôle, le rapport doit comporter le choix du **résultat du contrôle (RC)** parmi des options prédéfinies et 
