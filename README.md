@@ -1,6 +1,6 @@
 # Rapports des visites et de la maintenance des issues et niches
-Ce **repository** contient la documentation des outils de gestion des rapports qui seront produits par le prestataire du marché Batiment 
-dont l'attribution est prévue début 2025. Les exigences sont inscrite dans le DCE du marché. 
+Ce **repository** contient la documentation des outils de gestion des rapports qui seront produits par le prestataire du marché Batiment, 
+dont l'attribution est prévue début 2025. Les exigences sont inscrites dans le DCE du marché. 
 On trouve ici des informations complémentaires et qui pourront être mises à jour tout au long de l'execution du marché.
 
 Les tunnels comportent environ 290 issues et 430 niches que l'on a regroupées dans environ 30 **fermetures** 
@@ -19,13 +19,13 @@ https://raw.githubusercontent.com/ExploitIdF/IssuesTunnels/refs/heads/main/_stat
 <mark>Les correspondances entre niches et fermetures sont définies par la table suivante :</mark>
 > <mark>à compléter</mark>
 
-Le titulaire devra réaliser chaque année 5 visites bimestrielles et 1 intervention de maintenance préventive de chaque issue et de chaque niche.
+Le titulaire devra réaliser, chaque année, 5 visites bimestrielles et 1 intervention de maintenance préventive de chaque issue et de chaque niche.
 Le rapport d'une intervention de maintenance préventive est composé du rapport d'une visite bimestrielle et 
 d'un complément de rapport qui concerne les actions spécifiques à cette intervention.
 
 
 ## Formats des fichiers à déposer
-Le titulaire du marché devra mettre une application de saisie des rapports sur un terminal mobile, à disposition des agents intervenant dans les tunnels.
+Le titulaire du marché devra mettre une application de saisie des rapports sur un terminal mobile, à disposition de ses agents intervenant dans les tunnels.
 Les rapports seront envoyés directement depuis le terminal de l'agent sur le serveur de la DIRIF.
 
 A ce stade, il est prévu que le serveur soit un **bucket dans Google Storage** sur lequel le titulaire disposera de droit d'écriture.
