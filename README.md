@@ -9,10 +9,18 @@ qui peuvent donc être visitées la même nuit.
 La liste de référence des issues est disponible ici : 
 https://raw.githubusercontent.com/ExploitIdF/IssuesTunnels/main/_static/issuesTunnelsDIRIF.csv
 
-Les fermetures sont définies par la table suivante :
+La liste de référence des niches est disponible ici : 
+https://raw.githubusercontent.com/ExploitIdF/IssuesTunnels/main/_static/nichesBrExPc.csv
+
+Les correspondances entre issues et fermetures sont définies par la table suivante :
 https://exploitidf.github.io/IssuesTunnels/_downloads/caee2520ef1721f8437118adc2284ddf/issuesFermetures.csv
 
-> Il faudra harmoniser la forme des mises à disposition de fichiers de données
+Les correspondances entre niches et fermetures sont définies par la table suivante :
+> ==à compléter==
+
+
+> Il faudra harmoniser la forme des mises à disposition de fichiers de données (download ou raw data)
+
 
 
 
