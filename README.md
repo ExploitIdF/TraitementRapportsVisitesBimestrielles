@@ -57,6 +57,11 @@ Dans les fichiers les PC et RC sont identifiés par les codes à 3 caractères i
 ## Contrôle et intégration des fichiers
 Les contrôles et les traitements qui seront effectués sur les fichiers déposés par le titulaire sont en cours de rédaction.
 
+On renvoit pour cette étape à ce répertoire :  
+[Intégration des données dans BigQuery](https://github.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/tree/master/importeBQ)
+
+Une approche alternative a été explorée ici :  
+[Contrôle et production d'un csv](https://github.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/tree/master/logDepot)
 
 
 
