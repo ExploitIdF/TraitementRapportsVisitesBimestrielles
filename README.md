@@ -52,6 +52,11 @@ Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** s
 * liste
 * liste
 
+Dans les fichiers les PC et RC sont identifiés par les codes à 3 caractères indiqués dans les listes.
+
+## Contrôle et intégration des fichiers
+Les contrôles qui seront effectués
+
 
 
 
