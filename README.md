@@ -47,7 +47,7 @@ un défaut majeur ou mineur.
 
 Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** sont :
 
-* [Points de controles des visites bimestrielles des issues](https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/controleVB_IS.csv?token=GHSAT0AAAAAACY3JSDXA2I6D3A6U5CCQCXCZZDJT2Q)
+* [Points de controles des visites bimestrielles des issues](https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/controleVB_IS.csv)
 * Points de controles des visites bimestrielles des niches
 * Points de controles complémentaires des interventions de maintenance des issues
 * liste
@@ -55,7 +55,7 @@ Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** s
 Dans les fichiers les PC et RC sont identifiés par les codes à 3 caractères indiqués dans les listes.
 
 ## Contrôle et intégration des fichiers
-Les contrôles qui seront effectués
+Les contrôles et les traitements qui seront effectués sur les fichiers déposés par le titulaire sont en cours de rédaction.
 
 
 
