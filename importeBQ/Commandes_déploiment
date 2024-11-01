@@ -1,11 +1,9 @@
 PROJECT_ID=$(gcloud config get-value project)
 PROJECT_NUMBER=$(gcloud projects list --filter="project_id:$PROJECT_ID" --format='value(project_number)')
-
 SERVICE_ACCOUNT=$(gsutil kms serviceaccount -p $PROJECT_NUMBER)
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member serviceAccount:$SERVICE_ACCOUNT \
   --role roles/pubsub.publisher
-
 
 gcloud functions deploy traite-rapport --gen2 --runtime=python312 --region=europe-west1 --source=. --entry-point=hello_gcs --trigger-event-filters="type=google.cloud.storage.object.v1.finalized" --trigger-event-filters="bucket=issues-secours"
