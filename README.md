@@ -14,7 +14,7 @@ La liste de référence des niches est disponible ici :
 https://raw.githubusercontent.com/ExploitIdF/IssuesTunnels/main/_static/nichesBrExPc.csv
 
 Les correspondances entre issues et fermetures sont définies par la table suivante :
-https://raw.githubusercontent.com/ExploitIdF/IssuesTunnels/refs/heads/main/_static/issuesFermetures.csv
+['Table des correspondances entre issues et fermetures'](https://raw.githubusercontent.com/ExploitIdF/Referentiel_Tunnels/refs/heads/main/issuesFermetures.csv)
 
 <mark>Les correspondances entre niches et fermetures sont définies par la table suivante :</mark>
 > <mark>à compléter</mark>
