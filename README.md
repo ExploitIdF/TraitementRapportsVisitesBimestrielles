@@ -39,7 +39,7 @@ Le titulaire doit extraire de CosWin la table des OTs qui comporte, pour chaque 
 
 * numéro d'OT,
 * tatouage de l'issue ou de la niche,
-* délai de réalisation de l'action.
+* délai de réalisation de l'action (date prévue de la visite fixée en fonction des fermetures prévues en concertation avec le titulaire).
 
 Ces données doivent être importées dans l'application de saisie des rapports du titulaire(voir ci-dessous).
 
@@ -78,6 +78,7 @@ un défaut majeur ou mineur.
 Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** sont :
 
 * [Points de controles des visites bimestrielles des issues](https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/controleVB_IS.csv)
+* https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv?token=GHSAT0AAAAAACZ2U57VEKWGQGYJ2KU54WGCZZH5FTQ
 * Points de controles des visites bimestrielles des niches
 * Points de controles complémentaires des interventions de maintenance des issues
 * liste
