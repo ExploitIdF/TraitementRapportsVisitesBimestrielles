@@ -25,7 +25,7 @@ app.layout = html.Div([
             justify='center', align='center')
     ]),
     dash.page_container
-])
+], style={"width": "500px"},)
 
 if __name__ == '__main__':
    app.run_server(debug=True)
