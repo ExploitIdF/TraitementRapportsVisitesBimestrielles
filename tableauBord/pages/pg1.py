@@ -62,7 +62,7 @@ layout = html.Div([
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
         dbc.Row([
             dbc.Col( '  ' , width=1),
-            dbc.Col(html.Label('PCTT:', style={'text-align': 'center' }), width=1),
+            dbc.Col(html.Label('PCTT:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='PC-dropdown',
             options=[{'label': k, 'value': k} for k in PCs] ,
@@ -72,7 +72,7 @@ layout = html.Div([
 
         dbc.Row([
             dbc.Col( '  ' , width=1),
-            dbc.Col(html.Label('Fermeture:', style={'text-align': 'center' }), width=1),
+            dbc.Col(html.Label('Fermeture:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='Ferm-dropdown',
             options=pcFrDict['PCO'] ,
@@ -82,13 +82,11 @@ layout = html.Div([
         dbc.Row(  [
             dbc.Col( id='display-Ferm', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
         ]),
-
-
 ])
 
 @callback( Output('Ferm-dropdown', "options"),
     Input('PC-dropdown', 'value'))  #,prevent_initial_callbacks=True
-def met_a_jour(pc):
+def optionsFerm(pc):
     return pcFrDict[pc]
 
 @callback( Output('display-Ferm', 'children'),
