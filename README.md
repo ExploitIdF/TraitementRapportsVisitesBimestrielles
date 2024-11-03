@@ -37,7 +37,7 @@ qui est programmée, sur la base du calendrier des fermetures, en concertation a
 
 Le titulaire doit extraire de CosWin la table des OTs qui comporte, pour chaque ligne : 
 
-* numéro d'OT,
+* numéro d'OT (fils),
 * tatouage de l'issue ou de la niche,
 * délai de réalisation de l'action (date prévue de la visite fixée en fonction des fermetures prévues en concertation avec le titulaire).
 
@@ -60,13 +60,13 @@ On distingue 4 modèles de rapports :
 * complément de rapport pour la maintenance annuelle d'une issue (MAIS)
 * complément de rapport pour la maintenance annuelle d'une niche (MANI)
 
-Le nom du rapport est de la forme : <type>-<OT>-<timestamp>.json avec :
+Le nom du rapport est de la forme : ```<type>-<OT>-<timestamp>.json``` avec :
 
-* type : le code à 4 caractère (VBIS, ...)
+* type : le code à 4 caractère (VBIS,VBNI,MAIS,MANI)
 * OT : le numéro d'OT fils
-* le nombre de secondes depuis 01-01-202N à la fin de l'action dans l'issue ou la niche
+* le nombre de secondes depuis 01-01-202N mesuré lors de l'enregistrement du rapport, à la fin de l'action dans l'issue ou la niche
 
-par exemple : VBIS-345678-26182800 pour une action terminée le 30-10-2024 à 01h00.
+Par exemple : `VBIS-345678-26182800` pour une visite terminée le 30-10-2024 à 01h00.
 
 ### Points de contrôle
 Les rapports sont composés de plusieurs **points de contrôle (PC)**.
@@ -93,9 +93,6 @@ On renvoit pour cette étape à ce répertoire :
 
 Une approche alternative a été explorée ici :  
 [Contrôle et production d'un csv](https://github.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/tree/master/logDepot)
-
-
-
 
 
 
