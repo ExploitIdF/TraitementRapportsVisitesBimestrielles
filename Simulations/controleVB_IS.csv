@@ -13,7 +13,7 @@ P02,2. Porte coupe-feu,R5,1_Autre anomalie à signaler,0.022
 P02,2. Porte coupe-feu,R6,1_Porte coupe-feu endommagée,0.022
 P02,2. Porte coupe-feu,R7,2_Issue non équipée,0.022
 P02,2. Porte coupe-feu,R8,2_Porte coupe-feu OK,0.022
-P02,2. Porte coupe-feu,R9,2_Temps de fermeture en autonomie ≤ 10 secondes,0.8
+P02,2. Porte coupe-feu,R9,2_Temps de fermeture en autonomie ≤ 10 secondes,0.802
 P03,3. Surpression,R0,0_Surpression non activée à l'ouverture de la porte,0.05
 P03,3. Surpression,R1,0_Surpression trop forte empêchant la seconde ouverture de la porte,0.05
 P03,3. Surpression,R2,1_Autre anomalie à signaler,0.05
@@ -38,7 +38,7 @@ P07,7. Porte(s) sas à l'intérieur de l'issue,R3,1_Porte sas endommagée,0.029
 P07,7. Porte(s) sas à l'intérieur de l'issue,R4,1_Porte sas ne se refermant pas seule,0.029
 P07,7. Porte(s) sas à l'intérieur de l'issue,R5,1_Problème d'étanchéité,0.029
 P07,7. Porte(s) sas à l'intérieur de l'issue,R6,2_Issue non équipée,0.029
-P07,7. Porte(s) sas à l'intérieur de l'issue,R7,2_Porte(s) sas OK,0.8
+P07,7. Porte(s) sas à l'intérieur de l'issue,R7,2_Porte(s) sas OK,0.7969999999999999
 P08,8. Propreté et vacuité dans l'issue,R0,0_Encombrement critique de l'issue (passage impossible),0.04
 P08,8. Propreté et vacuité dans l'issue,R1,1_Autre anomalie à signaler,0.04
 P08,8. Propreté et vacuité dans l'issue,R2,1_Encombrement modéré de l'issue (passage possible),0.04
@@ -57,7 +57,7 @@ P11,11. Caméra détection,R2,2_Issue non équipée (?),0.8
 P12,12. Détecteur,R0,0_Détecteur HS,0.067
 P12,12. Détecteur,R1,0_Eclairage normal non activé,0.067
 P12,12. Détecteur,R2,2_Détecteur OK,0.067
-P12,12. Détecteur,R3,2_Issue non équipée (?),0.8
+P12,12. Détecteur,R3,2_Issue non équipée (?),0.7989999999999999
 P13,13. Téléphone de sécurité (TSE),R0,0_Dégradations visibles,0.1
 P13,13. Téléphone de sécurité (TSE),R1,2_Issue non équipée (?),0.1
 P13,13. Téléphone de sécurité (TSE),R2,2_TSE OK,0.8
