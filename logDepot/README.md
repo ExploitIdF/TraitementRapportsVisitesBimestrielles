@@ -1,9 +1,8 @@
-# LogDepot
+# LogDepot  - Enregistrement dans BigQuery des dépôts de rapports dans Google storage.
 241030 
+Function déclenchée par le dépot d'un rapport
 
-Copie du repertoire initiale pour faire une variante.
-
-Enregistrement dans BigQuery des dépôts.
+On enregistre l'heure du déport pour la comparer à l'horodatage déclaratifde l'enregistrement du dépot
 
 `cd ~/TraitementRapportsVisitesBimestrielles/logDepot`
 
