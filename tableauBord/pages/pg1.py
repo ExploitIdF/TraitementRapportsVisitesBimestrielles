@@ -8,7 +8,7 @@ from datetime import datetime,timedelta
 import gunicorn   
 import plotly.graph_objects as go
 from google.cloud import bigquery
-dash.register_page(__name__,name='Rapports des visites bimestrielles',order=1)
+dash.register_page(__name__,name='Dates des VB',order=1)
           
 issues=pd.read_csv('https://exploitidf.github.io/IssuesTunnels/_downloads/caee2520ef1721f8437118adc2284ddf/issuesFermetures.csv')#'CodeEx', 'PC', 'Tatouage', 'triCode', 'Fermeture'
 pcFr=issues[[ 'PC', 'Fermeture']].drop_duplicates()
@@ -26,20 +26,17 @@ frTa=frTa.str.split('$')
 FERMs=frTa.index
 frTa=list(frTa)
 frTaDict={FERMs[i]:frTa[i] for i in range(len(frTa)) }
-
-client = bigquery.Client()
-table =client.dataset("rapports_visites").table("LogDepot")
-query = "SELECT * from `tunnels-dirif.rapports_visites.LogDepot` "
+# 	
+client = bigquery.Client('tunnels-dirif')
+query = "SELECT * from `tunnels-dirif.rapports_visites.VisiteIssuesFt` "
 rows=client.query(query).result()
 rowsTab=[list(row) for row in rows]
 df=pd.DataFrame(rowsTab).drop_duplicates()
-df.columns=['Tatouage', 'HoroDate', 'Agent', 'PC0', 'CM0', 'PC1', 'CM1', 'PC2', 'CM2', 'PC3', 'CM3', 'PC4', 'CM4', 'PC5', 'CM5', 'PC6', 'CM6', 
-                  'PC7', 'CM7', 'PC8', 'CM8', 'PC9', 'CM9', 'PC10', 'CM10', 'PC11', 'CM11', 'PC12', 'CM12', 'PC13', 'CM13', 'PC14', 'CM14']
+df.columns=['OT','CodeEx','Tatouage','Agent','Horodate']
 df['Tatouage']=df['Tatouage'].str.strip()
-df['dt']=  pd.to_datetime(df['HoroDate'],format='%Y-%m-%d %H:%M:%S')
+df['Horodate']=df['Horodate'].str[:16]
+df['dt']=  pd.to_datetime(df['Horodate'],format='%Y-%m-%d %H:%M')
 df['date']= (df['dt']-pd.Timedelta(hours=12)).dt.strftime('%d-%m')
-df=df.join(issues.set_index('Tatouage')['CodeEx'],on='Tatouage')
-
 
 def foncTable(ferm):
     dff=df[df['Tatouage'].isin(frTaDict[ferm])].copy()
@@ -52,7 +49,7 @@ def foncTable(ferm):
     data=isDt.to_dict(orient='records'),
     columns=[{'id': c, 'name': c} for c in isDt.columns],
         style_data={   'whiteSpace': 'normal',   'height': 'auto',   
-        'width': '70px',   'maxWidth': '120px', 'minWidth': '30px' },
+        'width': '40px',   'maxWidth': '100px', 'minWidth': '10px' },
     )
 
 
@@ -66,7 +63,7 @@ layout = dbc.Container([
             dbc.Col(dcc.Dropdown(
             id='PC-dropdown',
             options=[{'label': k, 'value': k} for k in PCs] ,
-            value='PCN'
+            value='PCO'
             ), width=3),  
                    ]),    
 
@@ -81,16 +78,16 @@ layout = dbc.Container([
                    ]),    
         dbc.Row(  [
             dbc.Col( id='display-Ferm', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
-        ]),
+        ]),  
 ])
 
 @callback( Output('Ferm-dropdown', "options"),
-    Input('PC-dropdown', 'value'))  #,prevent_initial_callbacks=True
+    Input('PC-dropdown', 'value'),prevent_initial_callbacks=True)  #,prevent_initial_callbacks=True
 def optionsFerm(pc):
     return pcFrDict[pc]
 
 @callback( Output('display-Ferm', 'children'),
-    Input('Ferm-dropdown', 'value'))  #,prevent_initial_callbacks=True
+    Input('Ferm-dropdown', 'value'),prevent_initial_callbacks=True)  #
 def tab(ferm):
     return  html.Div(children=[foncTable(ferm)]) 
 
