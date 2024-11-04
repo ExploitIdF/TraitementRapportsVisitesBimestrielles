@@ -56,7 +56,7 @@ def foncTable(ferm):
     )
 
 
-layout = html.Div([
+layout = dbc.Container([
         html.H2("""Tb Pg1  
                   """, 
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
