@@ -78,7 +78,6 @@ un défaut majeur ou mineur.
 Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** sont :
 
 * [Points de controles des visites bimestrielles des issues](https://github.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/blob/master/Simulations/controleVB_IS.csv)
-* https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv?token=GHSAT0AAAAAACZ2U57VEKWGQGYJ2KU54WGCZZH5FTQ
 * Points de controles des visites bimestrielles des niches
 * Points de controles complémentaires des interventions de maintenance des issues
 * liste
