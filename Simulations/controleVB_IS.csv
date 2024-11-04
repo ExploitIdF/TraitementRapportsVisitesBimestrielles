@@ -1,4 +1,4 @@
-codePC,PC,codeRC,RC,Probab
+codePC,PC,codeRC,RC, Probab
 P01,1. Propreté/vacuité avant la porte coupe-feu,R0,0_Encombrement devant la porte coupe-feu,0.05
 P01,1. Propreté/vacuité avant la porte coupe-feu,R1,1_Autre anomalie à signaler,0.05
 P01,1. Propreté/vacuité avant la porte coupe-feu,R2,1_Présence d'eau devant la porte coupe-feu,0.05
