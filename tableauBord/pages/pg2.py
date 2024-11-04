@@ -8,16 +8,22 @@ from datetime import datetime,timedelta
 import gunicorn   
 import plotly.graph_objects as go
 from google.cloud import bigquery
-dash.register_page(__name__,name='Dates des V B',order=1)
+dash.register_page(__name__,name='Détails par issue',order=1)
           
 issues=pd.read_csv('https://exploitidf.github.io/IssuesTunnels/_downloads/caee2520ef1721f8437118adc2284ddf/issuesFermetures.csv')#'CodeEx', 'PC', 'Tatouage', 'triCode', 'Fermeture'
-pcFr=issues[[ 'PC', 'Fermeture']].drop_duplicates()
+pcFr=issues[[ 'PC', 'Fermeture']].drop_duplicates().copy()
 pcFr['Fermeture']=pcFr['Fermeture']+'$'
 pcFr=pcFr.groupby('PC')['Fermeture'].sum().str[:-1]
 pcFr=pcFr.str.split('$')
 PCs=pcFr.index
 pcFr=list(pcFr)
 pcFrDict={PCs[i]:pcFr[i] for i in range(4) }
+
+frIs=issues[[ 'Fermeture','CodeEx']].drop_duplicates().copy()
+frIs['CodeEx']=frIs['CodeEx']+'$'
+frIs=frIs.groupby('Fermeture')['CodeEx'].sum().str[:-1]
+frIs=frIs.str.split('$')
+frIsDict={frIs.index[i]:list(frIs)[i] for i in range(len(frIs)) }
 
 frTa=issues[[ 'Fermeture','Tatouage']].drop_duplicates()
 frTa['Tatouage']=frTa['Tatouage']+'$'
@@ -54,41 +60,52 @@ def foncTable(ferm):
 
 
 layout = dbc.Container([
-        html.P("""Choisir une fermeture pour afficher l'ensemble des issues correspondantes et 
-        les dates des visites bimestrielles pour lesquelles un rapport a été reçu.
+        html.H2("""Tb Pg1  
                   """, 
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
         dbc.Row([
             dbc.Col( '  ' , width=1),
             dbc.Col(html.Label('PCTT:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
-            id='PC-dropdown',
+            id='PC-dropdown2',
             options=[{'label': k, 'value': k} for k in PCs] ,
             value='PCO'
             ), width=3),  
-                   ]),    
-
+         ]),    
         dbc.Row([
             dbc.Col( '  ' , width=1),
             dbc.Col(html.Label('Fermeture:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
-            id='Ferm-dropdown',
+            id='Ferm-dropdown2',
             options=pcFrDict['PCO'] ,
             value='A14&NEU-Y'
             ), width=3),  
-                   ]),    
+        ]),
+        dbc.Row([
+            dbc.Col( '  ' , width=1),
+            dbc.Col(html.Label('Issue:', style={'textAlign': 'center' }), width=1),
+            dbc.Col(dcc.Dropdown(
+            id='Iss-dropdown2',
+            options=frIsDict['A14&NEU-Y'] ,
+            value='IS101'
+            ), width=3),  
+        ]),    
         dbc.Row(  [
-            dbc.Col( id='display-Ferm', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
+            dbc.Col( id='display-Ferm2', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
         ]),  
 ])
 
-@callback( Output('Ferm-dropdown', "options"),
-    Input('PC-dropdown', 'value'),prevent_initial_callbacks=True)  #,prevent_initial_callbacks=True
+@callback( Output('Ferm-dropdown2', "options"),
+    Input('PC-dropdown2', 'value'),prevent_initial_callbacks=True)  #,prevent_initial_callbacks=True
 def optionsFerm(pc):
     return pcFrDict[pc]
+@callback( Output('Iss-dropdown2', "options"),
+    Input('Ferm-dropdown2', 'value'),prevent_initial_callbacks=True)  #,prevent_initial_callbacks=True
+def optionsFerm(ferm):
+    return frIsDict[ferm]
 
-@callback( Output('display-Ferm', 'children'),
-    Input('Ferm-dropdown', 'value'),prevent_initial_callbacks=True)  #
+@callback( Output('display-Ferm2', 'children'),
+    Input('Ferm-dropdown2', 'value'),prevent_initial_callbacks=True)  #
 def tab(ferm):
     return  html.Div(children=[foncTable(ferm)]) 
 
