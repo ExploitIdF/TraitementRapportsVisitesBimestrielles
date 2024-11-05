@@ -44,23 +44,30 @@ df['Horodate']=df['Horodate'].str[:16]
 df['dt']=  pd.to_datetime(df['Horodate'],format='%Y-%m-%d %H:%M')
 df['date']= (df['dt']-pd.Timedelta(hours=12)).dt.strftime('%d-%m')
 
-def foncTable(ferm):
-    dff=df[df['Tatouage'].isin(frTaDict[ferm])].copy()
-    if len(dff)==0:
-        return html.Div(html.H3('Aucun rapport reçu pour cette fermeture !')) 
-    isDt=dff[['CodeEx','date']].drop_duplicates()
-    isDt['date']=isDt['date']+'$'
-    isDt=isDt.groupby('CodeEx')['date'].sum().str[:-1].str.replace('$','  -  ').reset_index()
+controleIS=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv')
+
+client = bigquery.Client('tunnels-dirif')
+query = "SELECT * from `tunnels-dirif.rapports_visites.lstRCn` "
+rows=client.query(query).result()
+rowsTab=[list(row) for row in rows]
+lstRC=pd.DataFrame(rowsTab).drop_duplicates()
+lstRC.columns=['ind','PC','RC','Com']
+
+def detailIssue(iss):
+    visIs=df[df['CodeEx']==iss].sort_values('dt')
+    if len(visIs)==0:
+        return html.Div(html.H3('Aucun rapport reçu pour cette issue !')) 
+    lstRcIs=lstRC.join(visIs,on='ind',how='inner')[['CodeEx','Horodate','PC','RC','Com','Agent']].sort_values(['Horodate','PC'])
+
     return   dash_table.DataTable(
-    data=isDt.to_dict(orient='records'),
-    columns=[{'id': c, 'name': c} for c in isDt.columns],
+    data=lstRcIs.to_dict(orient='records'),
+    columns=[{'id': c, 'name': c} for c in lstRcIs.columns],
         style_data={   'whiteSpace': 'normal',   'height': 'auto',   
         'width': '40px',   'maxWidth': '100px', 'minWidth': '10px' },
     )
 
-
 layout = dbc.Container([
-        html.H2("""Tb Pg1  
+        html.P("""Choisir une fermeture et une issues pour afficher le détail des rapports 
                   """, 
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
         dbc.Row([
@@ -91,7 +98,7 @@ layout = dbc.Container([
             ), width=3),  
         ]),    
         dbc.Row(  [
-            dbc.Col( id='display-Ferm2', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
+            dbc.Col( id='display-Tabl2', children=  html.Div(children=[detailIssue('IS101')])   ),
         ]),  
 ])
 
@@ -104,9 +111,9 @@ def optionsFerm(pc):
 def optionsFerm(ferm):
     return frIsDict[ferm]
 
-@callback( Output('display-Ferm2', 'children'),
-    Input('Ferm-dropdown2', 'value'),prevent_initial_callbacks=True)  #
-def tab(ferm):
-    return  html.Div(children=[foncTable(ferm)]) 
+@callback( Output('display-Tabl2', 'children'),
+    Input('Iss-dropdown2', 'value'),prevent_initial_callbacks=True)  #
+def tab(iss):
+    return  html.Div(children=[detailIssue(iss)]) 
 
 
