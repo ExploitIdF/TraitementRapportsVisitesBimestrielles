@@ -24,7 +24,7 @@ Le rapport d'une intervention de maintenance préventive est composé du rapport
 d'un complément de rapport qui concerne les actions spécifiques à cette intervention.
 
 ## Commandes et ordres de travail
-Les actions préventives de visites bimestrielles ou d'interventions de maintenance annuelle sont commandées de manière groupées par fermetures 
+Les actions préventives de visites bimestrielles ou d'interventions de maintenance annuelle sont commandées de manière groupée par fermetures 
 et elles concernent à la fois les issues et les niches. Pour les visites bimestrielles, d'une part, et pour les interventions de maintenance annuelle, d'autre part,
 il existe, dans le bordereau des prix unitaires (BPU), un prix pour chaque fermeture.
 
@@ -33,7 +33,8 @@ CosWin génère un OT fils par issue et par niche de la fermeture.
 Il en est de même pour les interventions de maintenance annuelle.
 
 Au moment de la commande le PCTT indique sur le bon de commande, dans Sucombe et dans CosWin la date de l'action 
-qui est programmée, sur la base du calendrier des fermetures, en concertation avec le titulaire. Dans Sucombe et dans CosWin, cette date définit le délai de réalisation de l'action.
+qui est programmée, sur la base du calendrier des fermetures, en concertation avec le titulaire. 
+Dans Sucombe et dans CosWin, cette date définit le délai de réalisation de l'action.
 
 Le titulaire doit extraire de CosWin la table des OTs qui comporte, pour chaque ligne : 
 
