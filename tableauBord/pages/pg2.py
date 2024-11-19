@@ -44,8 +44,8 @@ df['Horodate']=df['Horodate'].str[:16]
 df['dt']=  pd.to_datetime(df['Horodate'],format='%Y-%m-%d %H:%M')
 df['date']= (df['dt']-pd.Timedelta(hours=12)).dt.strftime('%d-%m')
 
-controleIS=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv')
-
+controleIS=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv').iloc[:,:-1]
+controleIS.columns=['codePC', 'tPC', 'codeRC', 'tRC']
 client = bigquery.Client('tunnels-dirif')
 query = "SELECT * from `tunnels-dirif.rapports_visites.lstRCn` "
 rows=client.query(query).result()
@@ -57,7 +57,10 @@ def detailIssue(iss):
     visIs=df[df['CodeEx']==iss].sort_values('dt')
     if len(visIs)==0:
         return html.Div(html.H3('Aucun rapport reçu pour cette issue !')) 
-    lstRcIs=lstRC.join(visIs,on='ind',how='inner')[['CodeEx','Horodate','PC','RC','Com','Agent']].sort_values(['Horodate','PC'])
+    lstRcIs=lstRC.join(visIs,on='ind',how='inner')
+    lstRcIs=lstRcIs.join(controleIS.set_index('codePC')['tPC'],on='PC' )
+    lstRcIs=lstRcIs.join(controleIS.set_index('codeRC')['tRC'],on='RC' ).sort_values(['Horodate','PC'])
+    lstRcIs=lstRcIs[['CodeEx','Horodate','PC','tPC','tRC','Com','Agent']]
 
     return   dash_table.DataTable(
     data=lstRcIs.to_dict(orient='records'),
