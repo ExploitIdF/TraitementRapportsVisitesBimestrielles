@@ -22,7 +22,11 @@ app.layout = dbc.Container([
             dbc.Col(  dcc.Link(f"{page['name']}", href=page["relative_path"]) , width=4)        
          for page in dash.page_registry.values()],
             justify='center', align='center'),
-    dash.page_container
+         dbc.Row([
+            dbc.Col(  dash.page_container , width=8)        
+        ],
+            justify='center', align='center'),           
+    
 ], fluid=True)
 
 if __name__ == '__main__':

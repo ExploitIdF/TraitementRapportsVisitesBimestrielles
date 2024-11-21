@@ -32,7 +32,7 @@ query = "SELECT * from `tunnels-dirif.rapports_visites.VisiteIssuesFt` "
 rows=client.query(query).result()
 rowsTab=[list(row) for row in rows]
 df=pd.DataFrame(rowsTab).drop_duplicates()
-df.columns=['OT','CodeEx','Tatouage','Agent','Horodate']
+df.columns=['OT','CodeEx','Tatouage','Agent','jour','Horodate']
 df['Tatouage']=df['Tatouage'].str.strip()
 df['Horodate']=df['Horodate'].str[:16]
 df['dt']=  pd.to_datetime(df['Horodate'],format='%Y-%m-%d %H:%M')
