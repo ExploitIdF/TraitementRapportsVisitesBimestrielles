@@ -48,8 +48,12 @@ def foncTable(ferm):
     return   dash_table.DataTable(
     data=isDt.to_dict(orient='records'),
     columns=[{'id': c, 'name': c} for c in isDt.columns],
-        style_data={   'whiteSpace': 'normal',   'height': 'auto',   
-        'width': '40px',   'maxWidth': '100px', 'minWidth': '10px' },
+        style_cell_conditional=[
+        {'if': {'column_id': 'CodeEx'}, 'width': '20%'},
+                {'if': {'column_id': 'date'}, 'width': '80%'},
+        ],
+
+      #  style_data={   'whiteSpace': 'normal',   'height': 'auto',         'width': '40px',   'maxWidth': '100px', 'minWidth': '10px' },
     )
 
 
@@ -59,17 +63,12 @@ layout = dbc.Container([
                   """, 
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
         dbc.Row([
-            dbc.Col( '  ' , width=1),
             dbc.Col(html.Label('PCTT:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='PC-dropdown',
             options=[{'label': k, 'value': k} for k in PCs] ,
             value='PCO'
             ), width=3),  
-                   ]),    
-
-        dbc.Row([
-            dbc.Col( '  ' , width=1),
             dbc.Col(html.Label('Fermeture:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='Ferm-dropdown',
@@ -77,6 +76,7 @@ layout = dbc.Container([
             value='A14&NEU-Y'
             ), width=3),  
                    ]),    
+  
         dbc.Row(  [
             dbc.Col( id='display-Ferm', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
         ]),  

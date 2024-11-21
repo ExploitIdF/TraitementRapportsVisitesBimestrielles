@@ -34,7 +34,7 @@ frTa=list(frTa)
 frTaDict={FERMs[i]:frTa[i] for i in range(len(frTa)) }
 # 	
 client = bigquery.Client('tunnels-dirif')
-query = "SELECT * from `tunnels-dirif.rapports_visites.VisiteIssuesFt` "
+query = "SELECT * from `tunnels-dirif.rapports_visites.VisiteIssuesFt0` "
 rows=client.query(query).result()
 rowsTab=[list(row) for row in rows]
 df=pd.DataFrame(rowsTab).drop_duplicates()
@@ -46,25 +46,33 @@ df['date']= (df['dt']-pd.Timedelta(hours=12)).dt.strftime('%d-%m')
 
 controleIS=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv').iloc[:,:-1]
 controleIS.columns=['codePC', 'tPC', 'codeRC', 'tRC']
-query = "SELECT * from `tunnels-dirif.rapports_visites.lstRCn` "
+query = "SELECT * from `tunnels-dirif.rapports_visites.lstRC0` "
 rows=client.query(query).result()
 rowsTab=[list(row) for row in rows]
 lstRC=pd.DataFrame(rowsTab).drop_duplicates()
 lstRC.columns=['ind','PC','RC','Com']
+lstRC['ind']=lstRC['ind'].astype(int)
 
-def detailIssue(iss):
+def detailIssue(iss,notes):
     visIs=df[df['CodeEx']==iss].sort_values('dt')
     if len(visIs)==0:
         return html.Div(html.H3('Aucun rapport, choisir une issue !')) 
     lstRcIs=lstRC.join(visIs,on='ind',how='inner')
     lstRcIs=lstRcIs.join(controleIS.set_index(['codePC','codeRC'])[['tPC','tRC']],on=['PC','RC']).sort_values(['Horodate','PC'])
     lstRcIs=lstRcIs[['CodeEx','Horodate','tPC','tRC','Com','Agent']]
-
+    if len(notes)==0 :
+         maxR=1
+    else:
+        maxR=max(notes)+1
+    lstRcIs=lstRcIs[lstRcIs['tRC'].str[0].astype(int)<maxR]
     return   dash_table.DataTable(
     data=lstRcIs.to_dict(orient='records'),
     columns=[{'id': c, 'name': c} for c in lstRcIs.columns],
-        style_data={   'whiteSpace': 'normal',   'height': 'auto',   
-        'width': '40px',   'maxWidth': '100px', 'minWidth': '10px' },
+        style_cell_conditional=[
+        {'if': {'column_id': 'CodeEx'}, 'width': '7%'},
+        {'if': {'column_id': 'Agent'}, 'width': '7%'},
+        ],
+       style_data={   'whiteSpace': 'normal',   'height': 'auto',        'width': '30px',   'maxWidth': '100px', 'minWidth': '10px' },
     )
 
 layout = dbc.Container([
@@ -72,34 +80,30 @@ layout = dbc.Container([
                   """, 
         style={'marginLeft': 90,'marginRight': 150, 'marginTop': 0}),        
         dbc.Row([
-            dbc.Col( '  ' , width=1),
             dbc.Col(html.Label('PCTT:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='PC-dropdown2',
             options=[{'label': k, 'value': k} for k in PCs] ,
             value='PCO'
-            ), width=3),  
-         ]),    
-        dbc.Row([
-            dbc.Col( '  ' , width=1),
+            ), width=2),  
             dbc.Col(html.Label('Fermeture:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='Ferm-dropdown2',
             options=pcFrDict['PCO'] ,
             value='A14&NEU-Y'
-            ), width=3),  
-        ]),
-        dbc.Row([
-            dbc.Col( '  ' , width=1),
+            ), width=2),  
             dbc.Col(html.Label('Issue:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
             id='Iss-dropdown2',
             options=frIsDict['A14&NEU-Y'] ,
             value='IS101'
-            ), width=3),  
-        ]),    
+            ), width=2),  
+            dbc.Col(html.Label('Notes:', style={'textAlign': 'center' }), width=1),
+            dbc.Col(dcc.Checklist([1,2],  [1,2],inline=True,id='notes'), width=2),            
+        ], 
+        justify='center', align='center'),    
         dbc.Row(  [
-            dbc.Col( id='display-Tabl2', children=  html.Div(children=[detailIssue('IS101')])   ),
+            dbc.Col( id='display-Tabl2', children=  html.Div(children=[detailIssue('IS101',[1,2])])   ),
         ]),  
 ])
 
@@ -113,8 +117,10 @@ def optionsFerm(ferm):
     return frIsDict[ferm]
 
 @callback( Output('display-Tabl2', 'children'),
-    Input('Iss-dropdown2', 'value'),prevent_initial_callbacks=True)  #
-def tab(iss):
-    return  html.Div(children=[detailIssue(iss)]) 
+    Input('Iss-dropdown2', 'value'),
+    Input('notes', 'value'),
+    prevent_initial_callbacks=True)  #
+def tab(iss,notes):
+    return  html.Div(children=[detailIssue(iss,notes)]) 
 
 
