@@ -3,7 +3,7 @@ Ce **repository** contient la documentation des outils de gestion des rapports q
 dont l'attribution est prévue début 2025. Les exigences sont inscrites dans le DCE du marché. 
 On trouve ici des informations complémentaires et qui pourront être mises à jour tout au long de l'execution du marché.
 
-Les tunnels comportent environ 290 issues et 430 niches que l'on a regroupées dans environ 30 **fermetures** 
+Les tunnels comportent environ 290 issues et 440 niches que l'on a regroupées dans 30 **fermetures** 
 qui sont des ensembles d'issues et de niches bénéficiant de fermetures nocturnes simultanées et 
 qui peuvent donc être visitées la même nuit.
 
@@ -17,11 +17,12 @@ Les correspondances entre issues et fermetures sont définies par la table suiva
 ['Table des correspondances entre issues et fermetures'](https://raw.githubusercontent.com/ExploitIdF/Referentiel_Tunnels/refs/heads/main/issuesFermetures.csv)
 
 <mark>Les correspondances entre niches et fermetures sont définies par la table suivante :</mark>
-> <mark>à compléter</mark>
+
+['Table des correspondances entre niches et fermetures'](https://raw.githubusercontent.com/ExploitIdF/Referentiel_Tunnels/refs/heads/main/nichesFermetures.csv)
+
 
 Le titulaire devra réaliser, chaque année, 5 visites bimestrielles et 1 intervention de maintenance préventive de chaque issue et de chaque niche.
-Le rapport d'une intervention de maintenance préventive est composé du rapport d'une visite bimestrielle et 
-d'un complément de rapport qui concerne les actions spécifiques à cette intervention.
+Le rapport d'une intervention de maintenance préventive est une extension du rapport d'une visite bimestrielle. 
 
 ## Commandes et ordres de travail
 Les actions préventives de visites bimestrielles ou d'interventions de maintenance annuelle sont commandées de manière groupée par fermetures 
@@ -49,7 +50,7 @@ Ces données doivent être importées dans l'application de saisie des rapports 
 Le titulaire du marché devra mettre une application de saisie des rapports sur un terminal mobile, à disposition de ses agents intervenant dans les tunnels.
 Les rapports seront envoyés directement depuis le terminal de l'agent sur le serveur de la DIRIF.
 
-A ce stade, il est prévu que le serveur soit un **bucket dans Google Storage** sur lequel le titulaire disposera de droit d'écriture.
+A ce stade, il est prévu que le serveur soit un **bucket dans Google Storage** sur lequel le titulaire disposera du droit d'écriture.
 Ainsi, dans la version de développement, les fichiers peuvent être atteints par une URL du type : 
 https://storage.googleapis.com/issues-secours/rapports-visites/345467-3196056.json
 
@@ -58,8 +59,8 @@ On distingue 4 modèles de rapports :
 
 * rapport de la visite bimestrielle d'une issue (VBIS)
 * rapport de la visite bimestrielle d'une niche (VBNI)
-* complément de rapport pour la maintenance annuelle d'une issue (MAIS)
-* complément de rapport pour la maintenance annuelle d'une niche (MANI)
+* rapport pour la maintenance annuelle d'une issue (MAIS)
+* rapport pour la maintenance annuelle d'une niche (MANI)
 
 Le nom du rapport est de la forme : ```<type>-<OT>-<timestamp>.json``` avec :
 
@@ -72,16 +73,15 @@ Par exemple : `VBIS-345678-26182800` pour une visite terminée le 30-10-2024 à 
 ### Points de contrôle
 Les rapports sont composés de plusieurs **points de contrôle (PC)**.
 
-Pour chaque point de contrôle, le rapport doit comporter le choix du **résultat du contrôle (RC)** parmi des options prédéfinies et 
-un commentaire de l'agent sous la forme d'un texte libre. Le commentaire est obligatoire pour les résultat du contrôle qui traduisent
-un défaut majeur ou mineur.
+Pour chaque point de contrôle, le rapport doit comporter :
+* le choix du **résultat du contrôle (RC)** parmi des options prédéfinies et 
+* un commentaire de l'agent sous la forme d'un texte libre. Ce commentaire est obligatoire pour les résultat du contrôle qui traduisent un défaut majeur ou mineur (note 0 ou 1).
 
 Les listes de **points de contrôle (PC)** et  **résultat du contrôle (RC)** sont :
 
 * [Points de controles des visites bimestrielles des issues](https://github.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/blob/master/Simulations/controleVB_IS.csv)
-* Points de controles des visites bimestrielles des niches
 * Points de controles complémentaires des interventions de maintenance des issues
-* liste
+* Points de controles des inspections annuelles des niches (dont les points de contrôle des visites bimestrielles) 
 
 Dans les fichiers les PC et RC sont identifiés par les codes à 3 caractères indiqués dans les listes.
 
