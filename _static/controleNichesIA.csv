@@ -1,0 +1,89 @@
+codePC,PC,codeRC,RC,Probab
+P26,26. Accessibilité des équipements,P26R0,2_Vacuité/accessibilité OK,0.8
+P26,26. Accessibilité des équipements,P26R1,0_Obstacles gênants ou empêchant l'accessibilité,0.2
+P27,27. Extincteurs,P27R0,2_Présence de deux extincteurs,0.6
+P27,27. Extincteurs,P27R1,2_Niche non équipée d'extincteurs,0.2
+P27,27. Extincteurs,P27R2,0_1 ou 2 extincteurs manquants,0.2
+P28,28. Poste d'appel d'ugence (PAU),P28R0,2_Contrôle visuel OK,0.6
+P28,28. Poste d'appel d'ugence (PAU),P28R1,2_Niche non équipée,0.2
+P28,28. Poste d'appel d'ugence (PAU),P28R2,0_Présence d'anomalies,0.2
+P29,29. Eclairage niche,P29R0,2_Eclairage niche OK,0.8
+P29,29. Eclairage niche,P29R1,0_Eclairage niche absent/insuffisant,0.2
+P30,30. Poteaux/bornes d'incendie,P30R0,2_Contrôle visuel OK,0.6
+P30,30. Poteaux/bornes d'incendie,P30R1,2_Niche non équipée,0.2
+P30,30. Poteaux/bornes d'incendie,P30R2,0_Présence d'anomalies,0.2
+P31,31. GTC niche,P31R0,2_Remontée GTC OK,0.8
+P31,31. GTC niche,P31R1,0_Anomalie remontée GTC,0.2
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,0.1
+,,,,0.1
+,,,,0.8
