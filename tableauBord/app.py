@@ -15,7 +15,7 @@ def index_redirect():
 
 app = dash.Dash(    __name__,    server=server, routes_pathname_prefix='/',
           external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
-app.title = "Tableau Rapport VB"
+app.title = "Tableau Rapport Visites Bimestrielles"
 
 app.layout = html.Div(dbc.Container( [
         dbc.Row([
