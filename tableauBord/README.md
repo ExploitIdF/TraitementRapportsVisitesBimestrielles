@@ -14,9 +14,10 @@ entrer sur le terminal :
 python3 app.py
 
 Pour le déploiement :
+```
 cd ~/TraitementRapportsVisitesBimestrielles/tableauBord
 gcloud run deploy tableau-bord-rapports-visites  --source . --platform managed   --region europe-west1  --allow-unauthenticated
-
+```
 En cas de difficulté, entrer `gcloud info` pour vérifier le compte et le projet de la configuration active.
 
   
