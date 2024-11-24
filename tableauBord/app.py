@@ -17,9 +17,9 @@ app = dash.Dash(    __name__,    server=server, routes_pathname_prefix='/',
           external_stylesheets=[dbc.themes.BOOTSTRAP], use_pages=True)
 app.title = "Tableau Rapport VB"
 
-app.layout = dbc.Container([
+app.layout = html.Div(dbc.Container( [
         dbc.Row([
-            dbc.Col(  dcc.Link(f"{page['name']}", href=page["relative_path"]) , width=4)        
+            dbc.Col(  dcc.Link(f"{page['name']}", href=page["relative_path"]) , width=2)        
          for page in dash.page_registry.values()],
             justify='center', align='center'),
          dbc.Row([
@@ -27,7 +27,7 @@ app.layout = dbc.Container([
         ],
             justify='center', align='center'),           
     
-], fluid=True)
+], fluid=True))
 
 if __name__ == '__main__':
    app.run_server(debug=True)

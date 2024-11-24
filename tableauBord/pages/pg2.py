@@ -8,57 +8,39 @@ from datetime import datetime,timedelta
 import gunicorn   
 import plotly.graph_objects as go
 from google.cloud import bigquery
+from  fonctions import litRC,litVisite,pcFrDict
 dash.register_page(__name__,name='Détails par issue',order=1)
           
-issues=pd.read_csv('https://exploitidf.github.io/IssuesTunnels/_downloads/caee2520ef1721f8437118adc2284ddf/issuesFermetures.csv')#'CodeEx', 'PC', 'Tatouage', 'triCode', 'Fermeture'
-pcFr=issues[[ 'PC', 'Fermeture']].drop_duplicates().copy()
-pcFr['Fermeture']=pcFr['Fermeture']+'$'
-pcFr=pcFr.groupby('PC')['Fermeture'].sum().str[:-1]
-pcFr=pcFr.str.split('$')
-PCs=pcFr.index
-pcFr=list(pcFr)
-pcFrDict={PCs[i]:pcFr[i] for i in range(4) }
+VisiteIssuesFt=litVisite('VisiteIssuesFt')
+VisiteIssuesFt=VisiteIssuesFt[VisiteIssuesFt['faitLocal'].astype(int).astype(bool)]
+PCs=list(pcFrDict.keys())
 
-frIs=issues[[ 'Fermeture','CodeEx']].drop_duplicates().copy()
-frIs['CodeEx']=frIs['CodeEx']+'$'
-frIs=frIs.groupby('Fermeture')['CodeEx'].sum().str[:-1]
-frIs=frIs.str.split('$')
-frIsDict={frIs.index[i]:list(frIs)[i] for i in range(len(frIs)) }
-
-frTa=issues[[ 'Fermeture','Tatouage']].drop_duplicates()
+frTa=VisiteIssuesFt[[ 'Fermeture','Tatouage']].drop_duplicates()
 frTa['Tatouage']=frTa['Tatouage']+'$'
 frTa=frTa.groupby('Fermeture')['Tatouage'].sum().str[:-1]
 frTa=frTa.str.split('$')
 FERMs=frTa.index
 frTa=list(frTa)
 frTaDict={FERMs[i]:frTa[i] for i in range(len(frTa)) }
-# 	
-client = bigquery.Client('tunnels-dirif')
-query = "SELECT * from `tunnels-dirif.rapports_visites.VisiteIssuesFt0` "
-rows=client.query(query).result()
-rowsTab=[list(row) for row in rows]
-df=pd.DataFrame(rowsTab).drop_duplicates()
-df.columns=['OT','CodeEx','Tatouage','Agent','jour','Horodate']
-df['Tatouage']=df['Tatouage'].str.strip()
-df['Horodate']=df['Horodate'].str[:16]
-df['dt']=  pd.to_datetime(df['Horodate'],format='%Y-%m-%d %H:%M')
-df['date']= (df['dt']-pd.Timedelta(hours=12)).dt.strftime('%d-%m')
 
-controleIS=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/Simulations/controleVB_IS.csv').iloc[:,:-1]
-controleIS.columns=['codePC', 'tPC', 'codeRC', 'tRC']
-query = "SELECT * from `tunnels-dirif.rapports_visites.lstRC0` "
-rows=client.query(query).result()
-rowsTab=[list(row) for row in rows]
-lstRC=pd.DataFrame(rowsTab).drop_duplicates()
-lstRC.columns=['ind','PC','RC','Com']
-lstRC['ind']=lstRC['ind'].astype(int)
+frIs=VisiteIssuesFt[[ 'Fermeture','CodeEx']].drop_duplicates().copy()
+frIs['CodeEx']=frIs['CodeEx']+'$'
+frIs=frIs.groupby('Fermeture')['CodeEx'].sum().str[:-1]
+frIs=frIs.str.split('$')
+frIsDict={frIs.index[i]:list(frIs)[i] for i in range(len(frIs)) }
+
+
+controlesIsNi=pd.read_csv('https://raw.githubusercontent.com/ExploitIdF/TraitementRapportsVisitesBimestrielles/refs/heads/master/controlesIsNi.csv')
+controlesIsNi.columns=['codePC', 'tPC', 'codeRC', 'tRC', 'Probab']
+lstRCIs=litRC('lstRCIs')
+
 
 def detailIssue(iss,notes):
-    visIs=df[df['CodeEx']==iss].sort_values('dt')
+    visIs=VisiteIssuesFt[VisiteIssuesFt['CodeEx']==iss].sort_values('dt')
     if len(visIs)==0:
         return html.Div(html.H3('Aucun rapport, choisir une issue !')) 
-    lstRcIs=lstRC.join(visIs,on='ind',how='inner')
-    lstRcIs=lstRcIs.join(controleIS.set_index(['codePC','codeRC'])[['tPC','tRC']],on=['PC','RC']).sort_values(['Horodate','PC'])
+    lstRcIs=lstRCIs.join(visIs,on='ind',how='inner')
+    lstRcIs=lstRcIs.join(controlesIsNi.set_index(['codePC','codeRC'])[['tPC','tRC']],on=['PC','RC']).sort_values(['Horodate','PC'])
     lstRcIs=lstRcIs[['CodeEx','Horodate','tPC','tRC','Com','Agent']]
     if len(notes)==0 :
          maxR=1

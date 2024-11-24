@@ -8,15 +8,18 @@ from datetime import datetime,timedelta
 import gunicorn   
 import plotly.graph_objects as go
 from google.cloud import bigquery
-from  fonctions import  litVisite,pcFrDict
-dash.register_page(__name__,name='Dates Visites Issues',order=1)
+from  fonctions import litRC,litVisite,pcFrDict
+dash.register_page(__name__,name='Dates Visites Niches',order=1)
 
-VisiteIssuesFt=litVisite('VisiteIssuesFt')
-VisiteIssuesFt=VisiteIssuesFt[VisiteIssuesFt['faitLocal'].astype(int).astype(bool)]
+
+VisiteNichesFt=litVisite('VisiteNichesFt')
+
+VisiteNichesFt=VisiteNichesFt[VisiteNichesFt['faitLocal'].astype(int).astype(bool)]
+
 
 PCs=list(pcFrDict.keys())
 
-frTa=VisiteIssuesFt[[ 'Fermeture','Tatouage']].drop_duplicates()
+frTa=VisiteNichesFt[[ 'Fermeture','Tatouage']].drop_duplicates()
 frTa['Tatouage']=frTa['Tatouage']+'$'
 frTa=frTa.groupby('Fermeture')['Tatouage'].sum().str[:-1]
 frTa=frTa.str.split('$')
@@ -25,7 +28,7 @@ frTa=list(frTa)
 frTaDict={FERMs[i]:frTa[i] for i in range(len(frTa)) }
 
 def foncTable(ferm):
-    dff=VisiteIssuesFt[VisiteIssuesFt['Tatouage'].isin(frTaDict[ferm])].copy()
+    dff=VisiteNichesFt[VisiteNichesFt['Tatouage'].isin(frTaDict[ferm])].copy()
     if len(dff)==0:
         return html.Div(html.H3('Aucun rapport reçu pour cette fermeture !')) 
     isDt=dff[['CodeEx','date','dt']].drop_duplicates().sort_values('dt')
@@ -33,7 +36,7 @@ def foncTable(ferm):
     isDt=isDt.groupby('CodeEx')['date'].sum().str[:-5].reset_index()
     return   dash_table.DataTable(
     data=isDt.to_dict(orient='records'),
-    columns=[{'id': c, 'name': n} for (c,n) in [('CodeEx','Issues'),('date','Dates')]],
+    columns=[{'id': c, 'name': n} for (c,n) in [('CodeEx','Niches'),('date','Dates')]],
         style_cell_conditional=[
         {'if': {'column_id': 'CodeEx'}, 'width': '20%'},
                 {'if': {'column_id': 'date'}, 'width': '80%'},
@@ -57,24 +60,24 @@ layout = dbc.Container([
             ), width=3),  
             dbc.Col(html.Label('Fermeture:', style={'textAlign': 'center' }), width=1),
             dbc.Col(dcc.Dropdown(
-            id='Ferm-dropdown',
+            id='Ferm-dropdownN',
             options=pcFrDict['PCO'] ,
             value='A14&NEU-Y'
             ), width=3),  
                    ]),    
   
         dbc.Row(  [
-            dbc.Col( id='display-Ferm', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
+            dbc.Col( id='display-FermN', children=  html.Div(children=[foncTable('A14&NEU-Y')])   ),
         ]),  
 ])
 
-@callback( Output('Ferm-dropdown', "options"),
+@callback( Output('Ferm-dropdownN', "options"),
     Input('PC-dropdown', 'value'),prevent_initial_callbacks=True)  #,prevent_initial_callbacks=True
 def optionsFerm(pc):
     return pcFrDict[pc]
 
-@callback( Output('display-Ferm', 'children'),
-    Input('Ferm-dropdown', 'value'),prevent_initial_callbacks=True)  #
+@callback( Output('display-FermN', 'children'),
+    Input('Ferm-dropdownN', 'value'),prevent_initial_callbacks=True)  #
 def tab(ferm):
     return  html.Div(children=[foncTable(ferm)]) 
 
