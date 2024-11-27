@@ -1,6 +1,10 @@
 # Formulaire pour saisir le rapport de visite
 
-On fait une application qui permet de choisir l'une des 4 option de rapport :
+On fait une application qui permet de choisir l'une des 4 options de rapport :
+* Visite bimestrielle d'issue
+* Visite bimestrielle de niche
+* Maintenance annuelle d'issue
+* Maintenance annuelle de niche
 
 
 ```
