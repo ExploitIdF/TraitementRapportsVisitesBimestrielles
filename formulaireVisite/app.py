@@ -37,7 +37,7 @@ def formulaire(rep):
                             html.Div([html.H5(contrP[contrP['codePC']==pc].iloc[0,1]),
                             dcc.Dropdown(  dicRC[pc], id='id-'+pc ),
                             
-                            dcc.Input(id='comm-{}'.format(pc) ,placeholder="Commentaire ?",style={"width":"100%"}) ])
+                            dcc.Input(id='comm-{}'.format(pc) ,placeholder="Commentaire ?",style={"width":"100%","marginTop":"6px","marginBottom":"12px"}) ])
                           ) for pc in  PCs
                         ] ),
     )
@@ -54,7 +54,7 @@ app.layout = dbc.Container( [dcc.Store("contr-store"),
             dbc.Col( "A", id="formulaire")        
         ],
             justify='center', align='center'),           
-    ], fluid=True,style={"width":"450px"},class_name="border  border-5")
+    ], fluid=True,style={"width":"420px"},class_name="border  border-2")
 
 @callback([Output( "choix-rapport", "children"),Output("formulaire","children") ,Output("contr-store", "data")], 
 [Input(cdV, "n_clicks") for cdV in cdVisites]) 
