@@ -1,0 +1,9 @@
+dash
+dash-bootstrap-components
+numpy
+pandas
+gunicorn
+plotly
+google.cloud
+google-cloud-bigquery
+google-cloud-storage
