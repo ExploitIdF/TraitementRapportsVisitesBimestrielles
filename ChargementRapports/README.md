@@ -235,4 +235,110 @@ Une fois votre service Cloud Run déployé et son URL disponible, vous pouvez te
 
 Ce setup vous permet d'uploader des fichiers vers GCS via une simple requête HTTP POST, sans que le client n'ait à gérer l'authentification Google Cloud ou les bibliothèques spécifiques à GCS.
 
+Super ! Maintenant que vous avez votre serveur Flask/Cloud Run en place pour recevoir les fichiers, voici un programme Python simple qui agit comme un client pour envoyer un fichier texte via une requête POST à ce serveur.
+
+Ce programme utilisera la bibliothèque `requests`, qui est la manière standard et la plus simple de faire des requêtes HTTP en Python.
+
+---
+
+## Programme Client Python pour l'Upload
+
+Assurez-vous que vous avez la bibliothèque `requests` installée dans votre environnement Python :
+
+```bash
+pip install requests
+```
+
+Ensuite, créez un fichier Python (par exemple, `upload_client.py`) avec le code suivant :
+
+```python
+import requests
+import os
+
+# --- Configuration ---
+# REMPLACEZ CETTE URL par l'URL de votre service Cloud Run déployé !
+CLOUD_RUN_SERVICE_URL = "https://gcs-file-uploader-xxxxxxxx-ew.a.run.app"
+
+# Le chemin vers le fichier que vous voulez uploader
+FILE_TO_UPLOAD = "mon_fichier_a_envoyer.txt"
+# --- Fin Configuration ---
+
+def upload_file_to_cloud_run(service_url, file_path):
+    """
+    Envoie un fichier texte au service Cloud Run via une requête POST.
+    """
+    if not os.path.exists(file_path):
+        print(f"Erreur : Le fichier '{file_path}' n'existe pas.")
+        return
+
+    upload_endpoint = f"{service_url}/upload"
+
+    try:
+        # Ouvrir le fichier en mode binaire pour l'envoi
+        with open(file_path, 'rb') as f:
+            # Préparer les données pour le formulaire multipart/form-data
+            # Le nom du champ 'file' doit correspondre à ce que le serveur attend (request.files['file'])
+            files = {'file': (os.path.basename(file_path), f, 'text/plain')} # ou 'application/octet-stream'
+
+            print(f"Tentative d'envoi de '{file_path}' à '{upload_endpoint}'...")
+            response = requests.post(upload_endpoint, files=files)
+
+            # Vérifier la réponse du serveur
+            response.raise_for_status() # Lève une exception pour les codes d'erreur HTTP (4xx ou 5xx)
+
+            print("\n--- Réponse du Serveur ---")
+            print(f"Statut HTTP : {response.status_code}")
+            print(f"Corps de la réponse : {response.json()}") # Suppose que le serveur renvoie du JSON
+            print("--------------------------")
+
+            if response.status_code == 200:
+                print(f"Succès : Le fichier '{file_path}' a été uploadé avec succès.")
+            else:
+                print(f"Échec : Erreur inattendue lors de l'upload.")
+
+    except requests.exceptions.HTTPError as e:
+        print(f"Erreur HTTP lors de l'envoi du fichier : {e}")
+        print(f"Réponse du serveur (si disponible) : {e.response.text}")
+    except requests.exceptions.ConnectionError as e:
+        print(f"Erreur de connexion : Impossible d'atteindre le serveur. Vérifiez l'URL et votre connexion internet.")
+        print(f"Détails : {e}")
+    except Exception as e:
+        print(f"Une erreur inattendue est survenue : {e}")
+
+if __name__ == "__main__":
+    # --- Créer un fichier de test si inexistant ---
+    if not os.path.exists(FILE_TO_UPLOAD):
+        print(f"Création du fichier de test '{FILE_TO_UPLOAD}'...")
+        with open(FILE_TO_UPLOAD, 'w') as f:
+            f.write("Ceci est un test d'upload depuis le client Python.\n")
+            f.write("Il devrait apparaître dans votre bucket Google Cloud Storage.\n")
+        print("Fichier de test créé.")
+    # --- Fin création fichier de test ---
+
+    upload_file_to_cloud_run(CLOUD_RUN_SERVICE_URL, FILE_TO_UPLOAD)
+
+```
+
+---
+
+### Comment Utiliser ce Programme Client :
+
+1.  **Mettez à jour `CLOUD_RUN_SERVICE_URL` :** Remplacez `"https://gcs-file-uploader-xxxxxxxx-ew.a.run.app"` par l'URL réelle de votre service Cloud Run déployé. Vous la trouverez dans la console Google Cloud, sous Cloud Run, en sélectionnant votre service.
+2.  **Vérifiez `FILE_TO_UPLOAD` :** Par défaut, le script crée un fichier `mon_fichier_a_envoyer.txt` si celui-ci n'existe pas. Vous pouvez changer ce nom de fichier pour pointer vers n'importe quel fichier texte que vous souhaitez envoyer.
+3.  **Exécutez le script :** Ouvrez votre terminal, naviguez jusqu'au dossier où vous avez enregistré `upload_client.py` et exécutez-le :
+
+    ```bash
+    python upload_client.py
+    ```
+
+**Que fait ce client ?**
+
+* Il ouvre le fichier spécifié en mode binaire.
+* Il prépare une requête HTTP `POST` en utilisant l'URL de votre endpoint `/upload` sur Cloud Run.
+* Il insère le fichier dans le corps de la requête en tant que `multipart/form-data`, avec le champ nommé `file` (qui correspond à `request.files['file']` côté serveur).
+* Il envoie la requête et affiche la réponse reçue de votre service Cloud Run.
+
+Si tout se passe bien, vous devriez voir un message de succès du client et le fichier apparaître dans votre bucket GCS !
+
+N'hésitez pas si vous avez d'autres questions sur l'intégration ou des scénarios plus complexes !
 
