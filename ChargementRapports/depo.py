@@ -1,6 +1,6 @@
 import requests
 import os
-service_url = "https://app-depot-rapports-bimestriels-222260276716.europe-west1.run.app"
+service_url = "https://charger-rapport-222260276716.europe-west1.run.app"
 FILE_TO_UPLOAD = "mon_fichier.txt"
 def upload_file_to_cloud_run(service_url, file_path):
     """
