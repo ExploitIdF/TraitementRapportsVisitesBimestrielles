@@ -1,8 +1,0 @@
-.gcloudignore
-.git
-.gitignore
-.env
-__pycache__/
-*.pyc
-venv/
-node_modules/
